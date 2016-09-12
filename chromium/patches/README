@@ -10,6 +10,7 @@ Upstream cherry-picks:
   2be3007ed55f1513bcae3d2a076e71878f48eb03 - avformat/utils security fix.
   7e01d48cfd168c3dfc663f03a3b6a98e0ecba328 - avformat/mov security fix.
   a867b948ed35b3f5b72ee714232c21d5f591e7aa - avformat/oggdec security fix.
+  347cb14b7cba7560e53f4434b419b9d8800253e7 - avformat/mov security fix.
 
 Autorename:
   autorename_* files are renamed copies of various files that would cause
@@ -97,3 +98,9 @@ Current patches:
   Changes to libavformat/riffdec.c
     Work around VC++ 2015 Update 1 compiler bug, crbug.com/581768 and
     https://connect.microsoft.com/VisualStudio/feedback/details/2291638
+
+  Changes to libavcodec/aarch64/videodsp.S
+    Renamed videodsp.S to videodsp_aarch64.S. This is to fix GN build errors
+    for arm64 linux. There is a conflict for generated videodsp.o as both
+    libavcodec/videodsp.c and libavcodec/aarch64/videodsp.S tries to generate
+    videodsp.o at same location.
