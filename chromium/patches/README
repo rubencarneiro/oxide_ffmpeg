@@ -33,6 +33,9 @@ Current patches:
     Remove "#define UNCHECKED_BITSTREAM_READER 1" from all codecs.
     In Chromium, all codecs should use the safe bitstream reader.
 
+  In libavcodec/libopusdec.c libopus_decode_init(), protect against OOB access
+    of ff_vorbis_channel_layouts[] with index < 0. TODO: push upstream.
+
   Changes to libavcodec/utils.c
     Disable deprecation warnings related to FF_API_AVPACKET_OLD_API.
     We cannot just disable FF_API_AVPACKET_OLD_API because upstream does not yet
@@ -64,15 +67,23 @@ Current patches:
     TODO: push upstream.
 
   Changes to libavformat/mp3dec.c
-    TODO(chcunningham/dalecurtis): https://crbug.com/504623 - Determine whether
-    these changes are still necessary and either remove or document them.
+    Fixes for MSAN Use-of-uninitialized-value. http://crbug.com/666874.
+    TODO(chcunningham): Submit upstream.
+
+    Other changes: TODO(chcunningham/dalecurtis): https://crbug.com/504623 - 
+    Determine whether these changes are still necessary and either remove or
+    document them.
 
   In libavformat/wavdec.c, exclude code blocks using #if to remove references
     to symbols not in our builds which some toolchains don't elide, for each of
     CONFIG_SPDIF_DEMUXER and CONFIG_W64_DEMUXER.
 
-  In libavformat/utils.c, locally disable deprecation warnings related to
-    AVStream.codec access until upstream stops using deprecated fields.
+  Changes to libavformat/utils.c
+    Locally disable deprecation warnings related to AVStream.codec access until
+    upstream stops using deprecated fields.
+
+    Protect against out-of-bounds access when searching for the next
+    non-discarded packet in ff_index_search_timestamp(). TODO: push upstream
 
   Changes to libavutil/arm/intmath.h
     Remove static av_always_inline av_const unsigned av_clip_uintp2_arm() and
