@@ -1,5 +1,5 @@
 Upstream cherry-picks, most recent cherry-picks at end of list:
-
+  831274fba4b14c542458ce5a3d0135b49499299a - lavc/flacdsp.c : Avoid undefined operations in non debug builds
 
 Autorename:
   autorename_* files are renamed copies of various files that would cause
@@ -95,6 +95,10 @@ Current patches:
 
     Revert upstream 7a9db61da39fbfaa910c10c0719be595a7d06f3d to fix seeking with
     text tracks.  crbug.com/681886 .
+
+  Changes to libavformat/id2v2.c
+    Change to 'return' in read_chapter to 'goto end' to fix a minor memory leak.
+    crbug.com/689339
 
   Changes to libavformat/mp3dec.c
     Other changes: TODO(chcunningham/dalecurtis): https://crbug.com/504623 -
